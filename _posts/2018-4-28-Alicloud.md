@@ -3,7 +3,7 @@ title: Alicloud计算平台搭建
 tag: mechine learning
 data: 2018-4-28
 ---
-# 阿里云云计算平台搭建 #
+
 
 * 购买ECS服务器
 * 创建实列，设置操作系统ubantu64位。64 64 64 位。tensorflow不支持64位

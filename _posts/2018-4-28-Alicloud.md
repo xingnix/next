@@ -4,7 +4,7 @@ tag: mechine learning
 data: 2018-4-28
 ---
 
-
+##### abstract: 阿里云共享计算型。由于在PC机上进行机器学习发热比较厉害于是调整到云服务器当中
 * 购买ECS服务器
 * 创建实列，设置操作系统ubantu64位。64 64 64 位。tensorflow不支持32位
 * 更改登录密码，登录名一般为root

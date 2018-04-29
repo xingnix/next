@@ -1,6 +1,6 @@
 ---
 title: Alicloud计算平台搭建
-tag: mechine learning
+tag: Mechine Learning
 data: 2018-4-28
 ---
 

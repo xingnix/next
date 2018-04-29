@@ -1,3 +1,9 @@
+---
+title: Learn Python
+tag: Mechine Learning
+data: 2018-4-29
+---
+
 > 转载自github
 # _*_ coding: utf-8 _*_
 
@@ -1208,108 +1214,4 @@
 #-- #编码: 字符串 --> 原始字节       #解码: 原始字节 --> 字符串
 
 #-- Python3.x中的字符串应用
-    s = '...'                     # 构建一个str对象，不可变对象
-    b = b'...'                    # 构建一个bytes对象，不可变对象
-    s[0], b[0]                    # 返回('.', 113)
-    s[1:], b[1:]                  # 返回('..', b'..')
-    B = B"""
-        xxxx
-        yyyy
-        """
-    # B = b'\nxxxx\nyyyy\n'
-    # 编码，将str字符串转化为其raw bytes形式：
-        str.encode(encoding = 'utf-8', errors = 'strict')
-        bytes(str, encoding)
-    # 编码例子：
-        S = 'egg'
-        S.encode()                    # b'egg'
-        bytes(S, encoding = 'ascii')  # b'egg'
-    # 解码，将raw bytes字符串转化为str形式：
-        bytes.decode(encoding = 'utf-8', errors = 'strict')
-        str(bytes_or_buffer[, encoding[, errors]])
-    # 解码例子：
-        B = b'spam'
-        B.decode()                # 'spam'
-        str(B)                    # "b'spam'"，不带编码的str调用，结果为打印该bytes对象
-        str(B, encoding = 'ascii')# 'spam'，带编码的str调用，结果为转化该bytes对象
-    
-#-- Python2.x的编码问题
-    u = u'汉'
-    print repr(u)                 # u'\xba\xba'
-    s = u.encode('UTF-8')
-    print repr(s)                 # '\xc2\xba\xc2\xba'
-    u2 = s.decode('UTF-8')
-    print repr(u2)                # u'\xba\xba'
-    # 对unicode进行解码是错误的
-    s2 = u.decode('UTF-8')        # UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-1: ordinal not in range(128)
-    # 同样，对str进行编码也是错误的
-    u2 = s.encode('UTF-8')        # UnicodeDecodeError: 'ascii' codec can't decode byte 0xc2 in position 0: ordinal not in range(128)
-
-#-- bytes对象
-    B = b'abc'
-    B = bytes('abc', 'ascii')
-    B = bytes([97, 98, 99])
-    B = 'abc'.encode()
-    # bytes对象的方法调用基本和str类型一致 但:B[0]返回的是ASCII码值97, 而不是b'a'
-    
-#-- #文本文件: 根据Unicode编码来解释文件内容，要么是平台的默认编码，要么是指定的编码类型
-    # 二进制文件：表示字节值的整数的一个序列 open('bin.txt', 'rb')
-    
-#-- Unicode文件
-    s = 'A\xc4B\xe8C'             # s = 'A?BèC'  len(s) = 5
-    #手动编码
-        l = s.encode('latin-1')   # l = b'A\xc4B\xe8C'  len(l) = 5
-        u = s.encode('utf-8')     # u = b'A\xc3\x84B\xc3\xa8C'  len(u) = 7
-    #文件输出编码
-        open('latindata', 'w', encoding = 'latin-1').write(s)
-        l = open('latindata', 'rb').read()                        # l = b'A\xc4B\xe8C'  len(l) = 5
-        open('uft8data', 'w', encoding = 'utf-8').write(s)
-        u = open('uft8data', 'rb').read()                         # u = b'A\xc3\x84B\xc3\xa8C'  len(u) = 7
-    #文件输入编码
-        s = open('latindata', 'r', encoding = 'latin-1').read()   # s = 'A?BèC'  len(s) = 5
-        s = open('latindata', 'rb').read().decode('latin-1')      # s = 'A?BèC'  len(s) = 5
-        s = open('utf8data', 'r', encoding = 'utf-8').read()      # s = 'A?BèC'  len(s) = 5
-        s = open('utf8data', 'rb').read().decode('utf-8')         # s = 'A?BèC'  len(s) = 5
-        
-
-"""其他----其他----其他----其他----其他----其他----其他----其他----其他----其他----其他----其他----其他----其他----其他----其他----其他----其他----其他"""
-    
-#-- 60个字符解决FizzBuzz:
-    """写一个程序, 打印数字1到100, 3的倍数打印“Fizz”来替换这个数, 5的倍数打印“Buzz”, 既是3又是5的倍数的打印“FizzBuzz”"""
-    for x in range(101):
-        print("fizz"[x%3*4::]+"buzz"[x%5*4::] or x)        # 解释:最主要用到列表(字符串)的子表
-        
-#-- Python实现任意深度的赋值 例如a[0] = 'value1'; a[1][2] = 'value2'; a[3][4][5] = 'value3'
-    class MyDict(dict):
-        def __setitem__(self, key, value):                 # 该函数不做任何改动 这里只是为了输出
-            print('setitem:', key, value, self)
-            super().__setitem__(key, value)
-        def __getitem__(self, item):                       # 主要技巧在该函数
-            print('getitem:', item, self)                  # 输出信息
-            # 基本思路: a[1][2]赋值时 需要先取出a[1] 然后给a[1]的[2]赋值
-            if item not in self:                           # 如果a[1]不存在 则需要新建一个dict 并使得a[1] = dict
-                temp = MyDict()                            # 新建的dict: temp
-                super().__setitem__(item, temp)            # 赋值a[1] = temp
-                return temp                                # 返回temp 使得temp[2] = value有效
-            return super().__getitem__(item)               # 如果a[1]存在 则直接返回a[1]
-    # 例子:
-        test = MyDict()
-        test[0] = 'test'
-        print(test[0])
-        test[1][2] = 'test1'
-        print(test[1][2])
-        test[1][3] = 'test2'
-        print(test[1][3])
-
-#-- Python中的多维数组
-    lists = [0] * 3                                        # 扩展list，结果为[0, 0, 0]
-    lists = [[]] * 3                                       # 多维数组，结果为[[], [], []]，但有问题，往下看
-    lists[0].append(3)                                     # 期望看到的结果[[3], [], []]，实际结果[[3], [3], [3]]，原因：list*n操作，是浅拷贝，如何避免？往下看
-    lists = [[] for i in range(3)]                         # 多维数组，结果为[[], [], []]
-    lists[0].append(3)                                     # 结果为[[3], [], []]
-    lists[1].append(6)                                     # 结果为[[3], [6], []]
-    lists[2].append(9)                                     # 结果为[[3], [6], [9]]
-    lists = [[[] for j in range(4)] for i in range(3)]
-    lists                                                  # 3行4列，且每一个元素为[]
-    
-    
+    s = '...'

@@ -3,7 +3,7 @@ title: Learn Python
 tag: Mechine Learning
 data: 2018-4-29
 ---
-##### from github xiaohu
+##### From github xiaohu 千行代码学python,one man can learn by doing
 
 ```python
 # _*_ coding: utf-8 _*_
